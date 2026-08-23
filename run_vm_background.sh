@@ -16,7 +16,7 @@ if [[ -z "${DATA_DIR:-}" ]]; then
     export DATA_DIR="$PROJECT_DIR/gestures/cropped_images"
   fi
 fi
-export WORK_DIR="${WORK_DIR:-$PROJECT_DIR/vm_output}"
+export WORK_DIR="${WORK_DIR:-/home/soumik/soumik/misc/output}"
 export SPLIT_MANIFEST_PATH="${SPLIT_MANIFEST_PATH:-$WORK_DIR/split_manifest.json}"
 export PYTHONPATH="$PROJECT_DIR${PYTHONPATH:+:$PYTHONPATH}"
 mkdir -p "$WORK_DIR" "$WORK_DIR/logs"
