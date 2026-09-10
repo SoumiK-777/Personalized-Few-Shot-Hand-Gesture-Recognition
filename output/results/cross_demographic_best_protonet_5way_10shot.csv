@@ -1,0 +1,5 @@
+model,test_group,n_way,k_shot,acc_mean,acc_std,n_episodes
+ProtoNet + EfficientNetV2-S (global training),Indian,5,10,99.09999909996986,2.3979167422596475,200
+ProtoNet + EfficientNetV2-S (global training),White,5,10,99.32999929785728,2.012735349986195,200
+ProtoNet + EfficientNetV2-S (global training),Black,5,10,99.07999908924103,2.5910623632459635,200
+ProtoNet + EfficientNetV2-S (global training),Mix,5,10,99.05999910831451,2.726977174127429,200
