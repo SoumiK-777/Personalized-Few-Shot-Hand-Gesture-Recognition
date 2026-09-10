@@ -59,6 +59,12 @@ The selected checkpoint is expected at:
 output/checkpoints/protonet_tf_efficientnetv2_s.in21k_5way_10shot_best.pt
 ```
 
+### Checkpoint archive
+
+The complete trained-checkpoint archive is approximately 60 GB and is hosted separately on Google Drive: [request access to the checkpoint archive](https://drive.google.com/file/d/1-w1O0k6PVhUnHrxNaPi5plWNjgk7zMI1/view?usp=sharing).
+
+The archive is access-restricted. Request permission from the repository author, download and extract it, then place its `checkpoints/` directory under `output/` before running evaluation-only scripts.
+
 ### Accuracy versus support-set size
 
 The grid separates 5-way and 7-way tasks and the three backbones, avoiding misleading aggregation across incompatible experimental conditions.
