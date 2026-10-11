@@ -17,6 +17,9 @@ fi
 export WORK_DIR="${WORK_DIR:-/home/soumik/soumik/misc/output}"
 export SPLIT_MANIFEST_PATH="${SPLIT_MANIFEST_PATH:-$WORK_DIR/split_manifest.json}"
 export PYTHONPATH="$PROJECT_DIR${PYTHONPATH:+:$PYTHONPATH}"
+# The supervised trainer uses all visible GPUs through PyTorch DataParallel.
+# This setting reduces CUDA allocator fragmentation on long runs.
+export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
 
 LOG_DIR="$WORK_DIR/logs"
 LOG_FILE="$LOG_DIR/novel_gesture_comparison.log"
@@ -56,7 +59,10 @@ run_all() {
   echo "Output:  $WORK_DIR"
   nvidia-smi || true
 
-  run_phase supervised_train "$PYTHON_BIN" scripts/train_supervised_base.py --steps "${SUPERVISED_STEPS:-1000}"
+  run_phase supervised_train "$PYTHON_BIN" scripts/train_supervised_base.py \
+    --steps "${SUPERVISED_STEPS:-1000}" \
+    --batch-size "${SUPERVISED_BATCH_SIZE:-32}" \
+    --workers "${SUPERVISED_WORKERS:-8}"
   run_phase supervised_base_test "$PYTHON_BIN" scripts/evaluate_supervised_base.py
   run_phase novel_gesture_evaluation "$PYTHON_BIN" scripts/evaluate_heldout_gestures.py
   run_phase comparison_report "$PYTHON_BIN" scripts/compare_heldout_gestures.py
