@@ -222,6 +222,42 @@ Follow the latest run log:
 tail -f /home/soumik/soumik/misc/output/logs/full_run_*.log
 ```
 
+### Novel-gesture comparison
+
+The 24 configured `ALLOWED_GESTURES` are the base classes.  Every other HaGRID
+gesture label found in the dataset is treated as a novel class: support images
+come from its `train` split and query images from its `test` split.  This is a
+class-disjoint transfer experiment, separate from the original within-24-class
+evaluation.
+
+```bash
+python scripts/train_supervised_base.py --steps 1000
+python scripts/evaluate_supervised_base.py
+python scripts/evaluate_heldout_gestures.py
+python scripts/compare_heldout_gestures.py
+```
+
+To run those four stages in the background with a resumable supervised-training
+checkpoint, use:
+
+```bash
+DATA_DIR=/absolute/path/to/cropped_images WORK_DIR=/absolute/path/to/output \
+  bash run_novel_gesture_comparison.sh
+```
+
+Follow the log with `tail -f "$WORK_DIR/logs/novel_gesture_comparison.log"` and
+read the current/last phase from
+`$WORK_DIR/logs/novel_gesture_comparison.status`. Re-run the same command after
+an interruption; base training resumes from its latest saved optimizer state and
+completed evaluation results are skipped.
+
+The supervised control is trained on base classes with ordinary 24-way
+cross-entropy.  At novel-class evaluation it keeps that representation frozen
+and fits a temporary linear classifier on each 5-way, 10-shot support set.  The
+ProtoNet checkpoint uses support-set prototypes and receives no gradient update;
+this is its intended few-shot adaptation mechanism.  Both methods are measured
+on exactly the same novel-class support/query protocol.
+
 The pipeline is resumable. On restart, it:
 
 - skips a task already recorded in `results/all_results.csv`;

@@ -3,9 +3,9 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
-ROOT = Path("/home/soumik/soumik/misc")
-DATA_DIR = ROOT / "cropped_images"
-WORK_DIR = ROOT / "output"
+ROOT = Path(os.environ.get("PROJECT_ROOT", "/home/soumik/soumik/misc"))
+DATA_DIR = Path(os.environ.get("DATA_DIR", ROOT / "cropped_images"))
+WORK_DIR = Path(os.environ.get("WORK_DIR", ROOT / "output"))
 
 RESULTS_DIR = WORK_DIR / "results"
 CKPT_DIR = WORK_DIR / "checkpoints"
