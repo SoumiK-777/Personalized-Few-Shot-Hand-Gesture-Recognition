@@ -61,7 +61,8 @@ def main():
     parser.add_argument("--batch-size", type=int, default=32,
                         help="Total batch size across all GPUs (default: 16 images/GPU on two T4s).")
     parser.add_argument("--lr", type=float, default=1e-3)
-    parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--workers", type=int, default=0,
+                        help="Image-loader workers (0 avoids host-RAM pressure on constrained VMs).")
     parser.add_argument("--no-amp", action="store_true",
                         help="Disable CUDA mixed precision (uses substantially more GPU memory).")
     parser.add_argument("--checkpoint", type=Path,

@@ -62,7 +62,7 @@ run_all() {
   run_phase supervised_train "$PYTHON_BIN" scripts/train_supervised_base.py \
     --steps "${SUPERVISED_STEPS:-1000}" \
     --batch-size "${SUPERVISED_BATCH_SIZE:-32}" \
-    --workers "${SUPERVISED_WORKERS:-8}"
+    --workers "${SUPERVISED_WORKERS:-0}"
   run_phase supervised_base_test "$PYTHON_BIN" scripts/evaluate_supervised_base.py
   run_phase novel_gesture_evaluation "$PYTHON_BIN" scripts/evaluate_heldout_gestures.py
   run_phase comparison_report "$PYTHON_BIN" scripts/compare_heldout_gestures.py

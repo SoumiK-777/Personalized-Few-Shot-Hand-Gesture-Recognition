@@ -253,9 +253,10 @@ completed evaluation results are skipped.
 
 On a VM with two 16 GB T4 GPUs, the launcher uses both GPUs for supervised
 training via `DataParallel`, automatic mixed precision, and a conservative total
-batch size of 32 (16 images per GPU). To reduce GPU memory further, set
-`SUPERVISED_BATCH_SIZE=16`; do not increase it unless `nvidia-smi` shows ample
-headroom.
+batch size of 32 (16 images per GPU). It defaults to zero image-loader workers
+to avoid host-RAM OOM kills; raise `SUPERVISED_WORKERS` only after a stable run.
+To reduce GPU memory further, set `SUPERVISED_BATCH_SIZE=16`; do not increase it
+unless `nvidia-smi` shows ample headroom.
 
 The supervised control is trained on base classes with ordinary 24-way
 cross-entropy.  At novel-class evaluation it keeps that representation frozen
