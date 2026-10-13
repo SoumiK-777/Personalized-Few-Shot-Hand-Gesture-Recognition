@@ -64,7 +64,7 @@ run_all() {
     --batch-size "${SUPERVISED_BATCH_SIZE:-32}" \
     --workers "${SUPERVISED_WORKERS:-0}"
   run_phase supervised_base_test "$PYTHON_BIN" scripts/evaluate_supervised_base.py
-  run_phase novel_gesture_evaluation "$PYTHON_BIN" scripts/evaluate_heldout_gestures.py
+  run_phase novel_gesture_evaluation "$PYTHON_BIN" scripts/evaluate_heldout_gesture_grid.py
   run_phase comparison_report "$PYTHON_BIN" scripts/compare_heldout_gestures.py
   write_status "COMPLETE: class-disjoint novel-gesture comparison"
 }

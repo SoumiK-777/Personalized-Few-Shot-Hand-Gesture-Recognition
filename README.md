@@ -233,7 +233,7 @@ evaluation.
 ```bash
 python scripts/train_supervised_base.py --steps 1000
 python scripts/evaluate_supervised_base.py
-python scripts/evaluate_heldout_gestures.py
+python scripts/evaluate_heldout_gesture_grid.py
 python scripts/compare_heldout_gestures.py
 ```
 
